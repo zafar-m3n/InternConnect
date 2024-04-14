@@ -1,0 +1,108 @@
+header,
+footer {
+  background-color: #19376d;
+  text-align: center;
+  color: #a5d7e8;
+}
+
+header {
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  background-color: #19376d;
+  color: #a5d7e8;
+  padding: 10px 20px;
+}
+
+header img {
+  height: 80%;
+  margin-right: 20px;
+}
+
+header h1 {
+  font-weight: bold;
+  font-size: 24px;
+  margin: 0; /* Removes default margin to align text properly */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.box {
+  width: 60%;
+  background-color: rgba(165, 215, 232, 0.7);
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: #19376d;
+  margin: 10px 0;
+  font-weight: 600;
+}
+
+.box p {
+  margin: 10px 0;
+}
+
+.box:first-of-type p:first-child {
+  text-align: center;
+  font-weight: 700;
+}
+
+.box p:first-child strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.box h3 {
+  font-weight: 300;
+}
+
+.office-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #ffffff;
+  text-align: center;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 400;
+  text-decoration: none;
+  margin: 10px auto;
+  width: fit-content;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.office-login-button:hover {
+  background-color: #0056b3;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.office-login-button img {
+  padding: 0 12px 0 0;
+}
+
+footer {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer p {
+  font-weight: bold;
+  font-size: 16px;
+}

@@ -1,9 +1,16 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/Login";
+
 function App() {
   return (
     <>
-      <div className="bg-dark">
-        <h1 className="text-success text-center">Dark Mode</h1>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/auth/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
