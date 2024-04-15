@@ -15,13 +15,9 @@ router.get(
   }),
   (req, res) => {
     const token = jwt.sign({ user: req.user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h", 
+      expiresIn: "1d",
     });
-    res.redirect(
-      `http://localhost:3000/auth/success?token=${token}&user=${encodeURIComponent(
-        JSON.stringify(req.user)
-      )}&message=Login successful&success=true`
-    );
+    res.redirect(`http://localhost:3000/auth/success?token=${token}`);
   }
 );
 

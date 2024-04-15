@@ -1,10 +1,8 @@
 import React from "react";
 import "../styles/LoginStyles.css";
 import { message } from "antd";
-// import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  // const navigate = useNavigate();
   const performLogin = async () => {
     try {
       window.location.href = "http://localhost:8080/api/v1/auth/microsoft";

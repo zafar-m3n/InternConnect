@@ -5,6 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 const passportSetup = require("./config/passportSetup");
 
 // Load env vars
@@ -21,7 +22,7 @@ app.use(morgan("dev"));
 app.use(cors());
 
 // Routes
-app.use("/api/v1/user", require("./routes/userRoutes"));
+app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/auth", authRoutes);
 
 const port = process.env.PORT || 8080;
