@@ -1,7 +1,18 @@
 import React from "react";
 import "../styles/LoginStyles.css";
+import { message } from "antd";
+// import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  // const navigate = useNavigate();
+  const performLogin = async () => {
+    try {
+      window.location.href = "http://localhost:8080/api/v1/auth/microsoft";
+    } catch (error) {
+      console.log(error);
+      message.error("An error occurred. Please try again later.", error);
+    }
+  };
   return (
     <div>
       <header>
@@ -46,10 +57,10 @@ const Login = () => {
         <div className="box">
           <p>Cookies must be enabled in your browser</p>
           <p>Log into your InternConnect account via:</p>
-          <a href="/" className="office-login-button">
+          <button onClick={performLogin} className="office-login-button">
             <img src="/images/office_logo.png" alt="" />
             MICROSOFT OFFICE 365 LOGIN
-          </a>
+          </button>
         </div>
         <div className="box">
           <h3>Is this your first time here?</h3>
