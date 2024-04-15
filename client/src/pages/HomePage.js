@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 
 const HomePage = () => {
- const getUserdata = async () => {
+ const getUserData = async () => {
    try {
      const res = await axios.get(
        "http://localhost:8080/api/v1/user/getUserData",
@@ -20,7 +20,7 @@ const HomePage = () => {
 
 
   useEffect(() => {
-    getUserdata();
+    getUserData();
   }, []);
 
   return (

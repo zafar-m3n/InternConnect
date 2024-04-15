@@ -2,17 +2,16 @@ const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(" ")[1];
-    jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
+    const token = req.headers["authorization"].split(" ")[1];
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
-        return res.status(200).send({ message: "Auth Failed", success: false });
+        return res.json({ Error: "Invalid token" });
       } else {
-        req.body.userId = decode.id;
+        req.user = decoded.user;
         next();
       }
     });
   } catch (error) {
-    console.log("Error in authMiddleware: ", error);
-    res.status(401).send({ message: "Auth Failed", success: false });
+    console.log(error);
   }
 };

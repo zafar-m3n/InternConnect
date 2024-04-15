@@ -1,9 +1,8 @@
-const userModel = require("../models/userModel");
+const UserModel = require("../models/userModel");
 
 const authController = async (req, res) => {
   try {
-    const user = await userModel.findOne({ _id: req.body.userId });
-    console.log("User: ", user);
+    const user = await UserModel.findOne({ _id: req.user });
     if (!user) {
       return res
         .status(200)
