@@ -1,12 +1,18 @@
 import React from "react";
 import "../styles/LoginStyles.css";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { message } from "antd";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const performLogin = async () => {
     try {
+      dispatch(showLoading());
       window.location.href = "http://localhost:8080/api/v1/auth/microsoft";
+      dispatch(hideLoading());
     } catch (error) {
+      dispatch(hideLoading());
       console.log(error);
       message.error("An error occurred. Please try again later.", error);
     }
