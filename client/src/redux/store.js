@@ -5,6 +5,6 @@ import { userSlice } from "./features/userSlice";
 export default configureStore({
   reducer: {
     alerts: alertSlice.reducer,
-    userSlice: userSlice.reducer,
+    user: userSlice.reducer,
   },
 });
