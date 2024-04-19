@@ -12,7 +12,6 @@ const Layout = ({ children }) => {
           <div className="sidebar">
             <div className="logo">
               <h6>InternConnect</h6>
-              <hr />
             </div>
             <div className="menu">
               {SidebarMenu.map((menu) => {

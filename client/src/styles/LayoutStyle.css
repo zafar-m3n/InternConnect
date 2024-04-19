@@ -17,10 +17,11 @@
   width: 100%;
   height: 100%;
 }
-.header {
+.header,
+.logo {
   height: 10vh;
   margin-bottom: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   background-color: #19376d;
 }
 .body {
@@ -32,14 +33,12 @@
 }
 .logo h6 {
   font-size: 1.5rem;
-  margin: 20px 0;
+  padding: 20px 0;
   text-align: center;
-}
-.menu {
-  margin-top: 50px;
+  color: #a5d7e8;
 }
 .menu-item {
-  margin-top: 30px;
+  padding-top: 30px;
   display: flex;
   align-items: center;
 }
@@ -56,4 +55,5 @@
 .active {
   background-color: #19376d;
   padding: 10px;
+  color: #a5d7e8;
 }
