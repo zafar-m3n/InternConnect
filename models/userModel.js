@@ -16,6 +16,7 @@ const userSchema = new Schema({
   },
   profilePic: {
     type: String,
+    default: "/images/profile.png",
   },
   createdAt: {
     type: Date,
@@ -24,6 +25,18 @@ const userSchema = new Schema({
   isAdmin: {
     type: Boolean,
     default: false,
+  },
+  isLecturer: {
+    type: Boolean,
+    default: false,
+  },
+  notifications: {
+    type: Array,
+    default: [],
+  },
+  seenNotifications: {
+    type: Array,
+    default: [],
   },
 });
 

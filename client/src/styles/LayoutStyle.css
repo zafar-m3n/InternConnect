@@ -72,6 +72,36 @@
 .header-content a {
   font-size: 1.2rem;
   text-decoration: none;
-  margin: 0 10px;
+  padding: 0 10px;
+  padding: 0 10px;
   color: #8b9feb;
+}
+.image-dropdown {
+  position: relative;
+}
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.dropdown {
+  position: absolute;
+  width: 150px;
+  left: -105px;
+  background: #e0e0e0;
+  padding: 0 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dropdown ul li {
+  padding: 10px 0;
+  cursor: pointer;
 }
