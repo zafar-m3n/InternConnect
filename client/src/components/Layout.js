@@ -1,10 +1,20 @@
 import React from "react";
 import "../styles/LayoutStyle.css";
+import { useSelector } from "react-redux";
 import { SidebarMenu } from "../data/data";
 import { Link, useLocation } from "react-router-dom";
 
 const Layout = ({ children }) => {
+  const { user } = useSelector((state) => state.user);
   const location = useLocation();
+  function formatName(name) {
+    if (!name) return "";
+    return name
+      .toLowerCase()
+      .split(" ")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
+  }
   return (
     <>
       <div className="main">
@@ -28,7 +38,13 @@ const Layout = ({ children }) => {
             </div>
           </div>
           <div className="content">
-            <div className="header">Header</div>
+            <div className="header">
+              <div className="header-content">
+                <i className="fas fa-solid fa-comment"></i>
+                <i className="fas fa-solid fa-bell"></i>
+                <Link to="/profile">{formatName(user?.name)}</Link>
+              </div>
+            </div>
             <div className="body">{children}</div>
           </div>
         </div>

@@ -2,26 +2,25 @@ const UserModel = require("../models/userModel");
 
 const authController = async (req, res) => {
   try {
-    const user = await UserModel.findOne({ _id: req.user });
+    const user = await UserModel.findById({ _id: req.body.userId });
     if (!user) {
-      return res
-        .status(200)
-        .send({ message: "User not found", success: false });
-    } else {
       return res.status(200).send({
-        message: "User found",
+        message: "User not found",
+        success: false,
+      });
+    } else {
+      res.status(200).send({
         success: true,
-        data: {
-          name: user.name,
-          email: user.email,
-        },
+        data: user,
       });
     }
   } catch (error) {
-    console.log("Error in authController: ", error);
-    res
-      .status(500)
-      .send({ message: "Internal Server Error", success: false, error });
+    console.log(error);
+    res.status(500).send({
+      message: "Authorization Error",
+      success: false,
+      error,
+    });
   }
 };
 

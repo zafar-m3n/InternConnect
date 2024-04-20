@@ -5,19 +5,24 @@ import Layout from "../components/Layout";
 const HomePage = () => {
   const getUserData = async () => {
     try {
-      const res = await axios.get(
+      const res = await axios.post(
         "http://localhost:8080/api/v1/user/getUserData",
+        {},
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }
       );
       console.log(res.data);
     } catch (error) {
-      console.log("Error in HomePage: ", error);
+      console.log(error);
     }
   };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   useEffect(() => {
     getUserData();
