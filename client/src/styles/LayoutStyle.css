@@ -25,11 +25,8 @@
   background-color: #19376d;
 }
 .body {
-  height: 10vh;
   margin-bottom: 20px;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: red;
 }
 .logo h6 {
   font-size: 1.5rem;
@@ -38,7 +35,7 @@
   color: #a5d7e8;
 }
 .menu-item {
-  padding-top: 30px;
+  padding: 15px 0;
   display: flex;
   align-items: center;
 }
@@ -66,15 +63,14 @@
 }
 .header-content i {
   font-size: 1.2rem;
-  padding: 0 10px;
   color: #576cbc;
 }
 .header-content a {
   font-size: 1.2rem;
   text-decoration: none;
   padding: 0 10px;
-  padding: 0 10px;
   color: #8b9feb;
+  margin-left: 10px;
 }
 .image-dropdown {
   position: relative;

@@ -24,10 +24,6 @@ const HomePage = () => {
     getUserData();
   }, []);
 
-  useEffect(() => {
-    getUserData();
-  }, []);
-
   return (
     <Layout>
       <h1>HomePage</h1>

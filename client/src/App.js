@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import Spinner from "./components/Spinner";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
+import Profile from "./pages/Profile";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -33,6 +34,14 @@ function App() {
               }
             />
             <Route path="/auth/success" element={<AuthSuccess />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         )}
       </BrowserRouter>

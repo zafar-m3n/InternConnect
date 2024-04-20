@@ -4,7 +4,7 @@ import "../styles/LayoutStyle.css";
 import { useSelector } from "react-redux";
 import { adminMenu, studentMenu } from "../data/data";
 import { Link, useLocation } from "react-router-dom";
-import { message } from "antd";
+import { message, Badge, Avatar } from "antd";
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
@@ -61,8 +61,9 @@ const Layout = ({ children }) => {
           <div className="content">
             <div className="header">
               <div className="header-content">
-                <i className="fas fa-solid fa-comment"></i>
-                <i className="fas fa-solid fa-bell"></i>
+                <Badge size="small" count={user && user.notifications.length} showZero>
+                  <Avatar icon={<i className="fas fa-solid fa-bell"></i>} shape="square" />
+                </Badge>
                 <Link to="/profile">{formatName(user?.name)}</Link>
                 <div className="image-dropdown">
                   <img
