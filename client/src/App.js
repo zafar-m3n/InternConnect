@@ -7,6 +7,7 @@ import Spinner from "./components/Spinner";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import Profile from "./pages/Profile";
+import CVUpload from "./pages/CVUpload";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -39,6 +40,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/cv-upload"
+              element={
+                <ProtectedRoute>
+                  <CVUpload />
                 </ProtectedRoute>
               }
             />

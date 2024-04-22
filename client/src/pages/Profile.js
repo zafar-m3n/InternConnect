@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Layout from "../components/Layout";
 import "../styles/ProfileStyle.css";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [cv, setCv] = useState(null);
   function formatName(name) {
     if (!name) return "";
@@ -31,7 +33,12 @@ const Profile = () => {
               </div>
             )}
 
-            <button className="btn btn-outline-primary">
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => {
+                navigate("/cv-upload");
+              }}
+            >
               {cv ? "Update CV" : "Upload CV"}
             </button>
           </div>
