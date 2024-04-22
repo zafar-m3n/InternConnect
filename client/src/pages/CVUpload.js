@@ -3,41 +3,13 @@ import Layout from "../components/Layout";
 import "../styles/UploadStyle.css";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const { Dragger } = Upload;
 
-const props = {
-  name: "file",
-  //   action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  accept: ".pdf",
-  beforeUpload(file) {
-    const isJpgOrPng = file.type === "application/pdf";
-    if (!isJpgOrPng) {
-      message.error("You can only upload a single PDF file");
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error("CV must be less than 2MB");
-    }
-    return isJpgOrPng && isLt2M;
-  },
-
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
-
 const CVUpload = () => {
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
   const tips = [
     {
       key: "Customize Your CV",
@@ -60,6 +32,44 @@ const CVUpload = () => {
       text: "Choose a clean and professional format for your CV. Use a readable font and clear headings.",
     },
   ];
+
+  const props = {
+    name: "file",
+    action: "http://localhost:8080/api/v1/upload/upload",
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    data: { userId: user._id },
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== "uploading") {
+        console.log(info.file, info.fileList);
+      }
+      if (status === "done") {
+        message.success(`${info.file.name} file uploaded successfully.`);
+        navigate("/profile");
+      } else if (status === "error") {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+    accept: ".pdf",
+    beforeUpload(file) {
+      const isJpgOrPng = file.type === "application/pdf";
+      if (!isJpgOrPng) {
+        message.error("You can only upload a single PDF file");
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        message.error("CV must be less than 2MB");
+      }
+      return isJpgOrPng && isLt2M;
+    },
+
+    onDrop(e) {
+      console.log("Dropped files", e.dataTransfer.files);
+    },
+  };
+
   const [currentTipIndex, setCurrentTipIndex] = useState(0);
 
   useEffect(() => {

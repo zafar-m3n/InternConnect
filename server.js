@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 const passportSetup = require("./config/passportSetup");
 
 // Load env vars
@@ -24,6 +25,7 @@ app.use(cors());
 // Routes
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/upload", uploadRoutes);
 
 const port = process.env.PORT || 8080;
 
