@@ -17,16 +17,17 @@
   width: 100%;
   height: 100%;
 }
-.header,
-.logo {
+.header {
   height: 10vh;
   margin-bottom: 20px;
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  background-color: #19376d;
+}
+.logo {
+  height: 10vh;
   background-color: #19376d;
 }
 .body {
   margin-bottom: 20px;
-  padding: 20px;
 }
 .logo h6 {
   font-size: 1.5rem;

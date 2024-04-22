@@ -1,0 +1,84 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  display: flex;
+  align-items: center;
+}
+
+.user-info img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.user-info h4,
+.applied-jobs h4 {
+  margin: 0;
+  color: #19376d;
+  font-weight: 600;
+}
+
+.user-info p {
+  color: #576cbc;
+}
+
+.cv-uploaded-text {
+  color: #0b2447 !important;
+  font-weight: 600;
+}
+
+.applied-jobs {
+  grid-column: 1 / 2;
+  grid-row: 2 / 4;
+}
+
+.applied-jobs ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.applied-jobs li {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.applied-jobs li:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.applied-jobs li span.company-name {
+  color: #19376d;
+  font-weight: bold;
+}
+
+.applied-jobs li span.job-title {
+  color: #0b2447;
+}
+
+.applied-jobs li:hover {
+  background-color: #e8e8e8;
+  cursor: pointer;
+}
+
+.cv-preview {
+  grid-column: 2 / 3;
+  grid-row: 1 / 4;
+}
