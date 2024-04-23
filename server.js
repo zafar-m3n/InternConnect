@@ -21,6 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
+app.use("/CVs", express.static("cvs"));
 
 // Routes
 app.use("/api/v1/user", userRoutes);

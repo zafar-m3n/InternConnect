@@ -1,4 +1,5 @@
 const UserModel = require("../models/userModel");
+const CVModel = require("../models/cvModel");
 
 const authController = async (req, res) => {
   try {
@@ -24,4 +25,22 @@ const authController = async (req, res) => {
   }
 };
 
-module.exports = { authController };
+const cvController = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const cvData = await CVModel.findOne({ user: userId });
+    res.status(200).send({
+      success: true,
+      data: cvData,
+    });
+  } catch (error) {
+    console.error("Error getting CVs: ", error);
+    res.status(500).send({
+      message: "Error getting CVs",
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+module.exports = { authController, cvController };
