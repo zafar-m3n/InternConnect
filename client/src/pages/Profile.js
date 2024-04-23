@@ -10,7 +10,6 @@ const Profile = () => {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [cv, setCv] = useState(null);
-  const [cvStatus, setCvStatus] = useState("pending");
 
   function formatName(name) {
     if (!name) return "";
@@ -37,8 +36,7 @@ const Profile = () => {
         }
       );
       if (response.data.data) {
-        setCv(`http://localhost:8080/${response.data.data.path}`);
-        setCvStatus(response.data.data.status);
+        setCv(response.data.data);
       }
     } catch (error) {
       console.error("Error fetching CV:", error.response);
@@ -63,7 +61,7 @@ const Profile = () => {
             {cv && (
               <div className="d-flex justify-content-between m-0">
                 <p className="cv-uploaded-text me-5">CV Uploaded</p>
-                <a href="#">Download CV</a>
+                <p>{cv.filename}</p>
               </div>
             )}
 
@@ -72,10 +70,10 @@ const Profile = () => {
                 <p className="cv-uploaded-text me-5">CV Status</p>
                 <p
                   className={`text-capitalize fw-bold ${
-                    statusColors[cvStatus] || ""
+                    statusColors[cv.status] || ""
                   }`}
                 >
-                  {cvStatus}
+                  {cv.status}
                 </p>
               </div>
             )}
@@ -113,7 +111,7 @@ const Profile = () => {
           <h4>CV Preview Section</h4>
           {cv ? (
             <iframe
-              src={cv}
+              src={`http://localhost:8080/${cv.path}`}
               title="CV Preview"
               width="100%"
               height="450px"
