@@ -1,0 +1,43 @@
+.notification-popover {
+  width: 350px;
+}
+
+.notification-item {
+  padding: 5px 10px;
+  margin: 10px 0;
+  border-left: 5px #8b9feb solid;
+  border-bottom: 1px #e0e0e0 solid;
+}
+
+.notification-item:last-of-type {
+  border-bottom: none;
+}
+
+.notification-message {
+  margin: 0;
+  color: #252c33;
+}
+
+.notification-type {
+  font-weight: 600;
+  margin: 0;
+  color: #252c33;
+}
+
+.notification-link {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #8b9feb;
+  text-decoration: none;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.notification-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #19367d;
+}

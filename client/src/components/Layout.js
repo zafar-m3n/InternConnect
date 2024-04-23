@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/LayoutStyle.css";
+import "../styles/NotificationPopoverStyle.css";
 import { useSelector } from "react-redux";
 import { adminMenu, studentMenu } from "../data/data";
 import { Link, useLocation } from "react-router-dom";
-import { message, Badge, Avatar } from "antd";
+import { message, Badge, Avatar, Popover } from "antd";
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
@@ -19,6 +20,24 @@ const Layout = ({ children }) => {
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join(" ");
   }
+
+  const content = (
+    <div className="notification-popover">
+      {user?.notifications && user?.notifications.length > 0 ? (
+        user?.notifications.slice(0, 3).map((notification, index) => (
+          <div key={index} className="notification-item">
+            <p className="notification-type">{notification.type}</p>
+            <p className="notification-message">{notification.message}</p>
+          </div>
+        ))
+      ) : (
+        <p className="notification-message text-center">You have no notifications</p>
+      )}
+      <Link to="/notifications" className="notification-link">
+        See all
+      </Link>
+    </div>
+  );
 
   const menuRef = useRef();
   const imageRef = useRef();
@@ -61,9 +80,21 @@ const Layout = ({ children }) => {
           <div className="content">
             <div className="header">
               <div className="header-content">
-                <Badge size="small" count={user && user.notifications.length} showZero>
-                  <Avatar icon={<i className="fas fa-solid fa-bell"></i>} shape="square" />
-                </Badge>
+                <Popover
+                  content={content}
+                  title={
+                    <div className="notification-title">Notifications</div>
+                  }
+                  placement="bottomRight"
+                  trigger="click"
+                >
+                  <Badge count={user?.notifications.length} showZero>
+                    <Avatar
+                      icon={<i className="fas fa-bell"></i>}
+                      shape="square"
+                    />
+                  </Badge>
+                </Popover>
                 <Link to="/profile">{formatName(user?.name)}</Link>
                 <div className="image-dropdown">
                   <img

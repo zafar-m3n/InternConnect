@@ -59,6 +59,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     admin.notifications.push({
       type: "CV Upload",
       message: notificationMessage,
+      path: `/cvs`,
     });
     await admin.save();
 

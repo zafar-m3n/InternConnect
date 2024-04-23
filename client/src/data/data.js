@@ -43,9 +43,9 @@ export const adminMenu = [
     icon: "fa-solid fa-comments",
   },
   {
-    name: "Notifications",
-    path: "/notifications",
-    icon: "fa-solid fa-bell",
+    name: "Student CVs",
+    path: "/cvs",
+    icon: "fa-solid fa-file-alt",
   },
   {
     name: "Reports",

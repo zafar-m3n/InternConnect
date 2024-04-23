@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import Profile from "./pages/Profile";
 import CVUpload from "./pages/CVUpload";
+import Notifications from "./pages/Notifications";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -35,6 +36,14 @@ function App() {
               }
             />
             <Route path="/auth/success" element={<AuthSuccess />} />
+            <Route
+              path="/notifications"
+              element={
+                <ProtectedRoute>
+                  <Notifications />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/profile"
               element={

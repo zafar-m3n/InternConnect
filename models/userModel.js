@@ -30,14 +30,21 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  notifications: {
-    type: Array,
-    default: [],
-  },
-  seenNotifications: {
-    type: Array,
-    default: [],
-  },
+  notifications: [
+    {
+      type: { type: String, required: true },
+      message: { type: String, required: true },
+      path: { type: String, required: true },
+      date: { type: Date, default: Date.now },
+    },
+  ],
+  seenNotifications: [
+    {
+      type: { type: String, required: true },
+      message: { type: String, required: true },
+      date: { type: Date, default: Date.now },
+    },
+  ],
 });
 
 const User = mongoose.model("user", userSchema);
