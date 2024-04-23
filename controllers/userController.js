@@ -29,6 +29,13 @@ const cvController = async (req, res) => {
   try {
     const userId = req.body.userId;
     const cvData = await CVModel.findOne({ user: userId });
+
+    if (!cvData) {
+      return res.status(200).send({
+        success: true,
+        message: "CV not uploaded yet.",
+      });
+    }
     res.status(200).send({
       success: true,
       data: cvData,
@@ -42,5 +49,4 @@ const cvController = async (req, res) => {
     });
   }
 };
-
 module.exports = { authController, cvController };

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Layout from "../components/Layout";
 import axios from "axios";
+import { message } from "antd";
 import "../styles/ProfileStyle.css";
 
 const Profile = () => {
@@ -10,6 +11,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const [cv, setCv] = useState(null);
   const [cvStatus, setCvStatus] = useState("pending");
+
   function formatName(name) {
     if (!name) return "";
     return name
@@ -34,15 +36,19 @@ const Profile = () => {
           },
         }
       );
-      setCv(`http://localhost:8080/${response.data.data.path}`);
-      setCvStatus(response.data.data.status);
+      if (response.data.data) {
+        setCv(`http://localhost:8080/${response.data.data.path}`);
+        setCvStatus(response.data.data.status);
+      }
     } catch (error) {
       console.error("Error fetching CV:", error.response);
+      message.error("An error occurred while fetching the CV.");
     }
   };
 
   useEffect(() => {
     getCV();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
