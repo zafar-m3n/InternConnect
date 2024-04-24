@@ -9,6 +9,11 @@ import PublicRoute from "./components/PublicRoute";
 import Profile from "./pages/Profile";
 import CVUpload from "./pages/CVUpload";
 import Notifications from "./pages/Notifications";
+import Internships from "./pages/Internships";
+import Chats from "./pages/Chats";
+import CVPage from "./pages/CVPage";
+import Reports from "./pages/Reports";
+import Lecturers from "./pages/Lecturers";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -45,10 +50,50 @@ function App() {
               }
             />
             <Route
+              path="/chat"
+              element={
+                <ProtectedRoute>
+                  <Chats />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/internships"
+              element={
+                <ProtectedRoute>
+                  <Internships />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/profile"
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/cvs"
+              element={
+                <ProtectedRoute>
+                  <CVPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/reports"
+              element={
+                <ProtectedRoute>
+                  <Reports />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/lecturers"
+              element={
+                <ProtectedRoute>
+                  <Lecturers />
                 </ProtectedRoute>
               }
             />
