@@ -1,59 +1,80 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Tabs, Button, message } from "antd";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Tabs, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import "../styles/NotificationPopoverStyle.css";
 import axios from "axios";
+import { setUser } from "../redux/features/userSlice";
 
 const { TabPane } = Tabs;
 
 const Notifications = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const [activeTabKey, setActiveTabKey] = useState("1");
 
-  const handleNotificationClick = async (notification) => {
+  const markAllAsRead = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/v1/user/mark-as-read",
+        "http://localhost:8080/api/v1/user/mark-all-as-read",
+        {},
         {
-          userId: user._id,
-          notificationId: notification._id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
+
       if (res.data.success) {
         message.success(res.data.message);
-        window.location.reload();
+        const updatedUser = res.data.data;
+        dispatch(setUser(updatedUser));
+      } else {
+        message.error(res.data.message);
       }
     } catch (error) {
-      message.error(error);
+      message.error("Failed to mark all as read: " + error.message);
     }
   };
 
-  const markAllAsRead = () => {
-    // Logic to mark all notifications as read
-  };
+  const deleteAllNotifications = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/v1/user/delete-all-notifications",
+        {},
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
 
-  const deleteAllNotifications = () => {
-    // Logic to delete all read notifications
+      if (res.data.success) {
+        message.success(res.data.message);
+        const updatedUser = res.data.data;
+        dispatch(setUser(updatedUser));
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      message.error("Failed to delete all notifications: " + error.message);
+    }
   };
 
   const tabBarExtraContent = {
     right:
       activeTabKey === "1" && user?.notifications.length > 0 ? (
-        <Button type="link" onClick={markAllAsRead}>
+        <button
+          className="btn btn-link text-decoration-none"
+          onClick={markAllAsRead}
+        >
           Mark all as read
-        </Button>
+        </button>
       ) : activeTabKey === "2" && user?.seenNotifications.length > 0 ? (
-        <Button type="link" onClick={deleteAllNotifications}>
+        <button
+          className="btn btn-link text-decoration-none"
+          onClick={deleteAllNotifications}
+        >
           Delete notifications
-        </Button>
+        </button>
       ) : null,
   };
 
@@ -70,7 +91,7 @@ const Notifications = () => {
             user?.notifications.map((notification, index) => (
               <div
                 key={index}
-                onClick={() => handleNotificationClick(notification)}
+                onClick={() => navigate(notification.path)}
                 style={{ cursor: "pointer" }}
                 className="notification-item"
               >

@@ -50,34 +50,45 @@ const cvController = async (req, res) => {
   }
 };
 
-const readNotificationController = async (req, res) => {
+const markAllAsReadController = async (req, res) => {
   try {
     const user = await UserModel.findById(req.body.userId);
-    const notification = user.notifications.id(req.body.notificationId);
 
-    if (notification) {
-      user.seenNotifications.push(notification);
-      user.notifications.pull(notification);
+    user.seenNotifications = user.seenNotifications.concat(user.notifications);
+    user.notifications = [];
+    await user.save();
 
-      await user.save();
-      res.send({
-        message: "Notification marked as read successfully",
-        success: true,
-      });
-    } else {
-      res.status(404).send({
-        message: "Notification not found",
-        success: false,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      message: "Error reading notification",
-      success: false,
-      error,
+    res.status(200).send({
+      message: "All notifications marked as read",
+      success: true,
+      data: user,
     });
+  } catch (error) {
+    console.error("Failed to mark notifications as read:", error);
+    res.status(500).send({ message: "Internal server error", success: false });
   }
 };
 
-module.exports = { authController, cvController, readNotificationController };
+const deleteAllNotificationsController = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.body.userId);
+    user.seenNotifications = [];
+    await user.save();
+
+    res.status(200).send({
+      message: "All notifications deleted",
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    console.error("Failed to delete notifications:", error);
+    res.status(500).send({ message: "Internal server error", success: false });
+  }
+};
+
+module.exports = {
+  authController,
+  cvController,
+  markAllAsReadController,
+  deleteAllNotificationsController,
+};
