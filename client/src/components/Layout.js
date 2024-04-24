@@ -21,17 +21,29 @@ const Layout = ({ children }) => {
       .join(" ");
   }
 
+  const handleNotificationClick = (path) => {
+    navigate(path);
+    // Additional logic to mark the notification as read can be implemented here
+  };
+
   const content = (
     <div className="notification-popover">
       {user?.notifications && user?.notifications.length > 0 ? (
         user?.notifications.slice(0, 3).map((notification, index) => (
-          <div key={index} className="notification-item">
+          <div
+            key={index}
+            className="notification-item"
+            onClick={() => handleNotificationClick(notification.path)}
+            style={{ cursor: "pointer" }}
+          >
             <p className="notification-type">{notification.type}</p>
             <p className="notification-message">{notification.message}</p>
           </div>
         ))
       ) : (
-        <p className="notification-message text-center">You have no notifications</p>
+        <p className="notification-message text-center">
+          You have no notifications
+        </p>
       )}
       <Link to="/notifications" className="notification-link">
         See all

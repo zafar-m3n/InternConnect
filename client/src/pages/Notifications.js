@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Tabs, Button } from "antd";
+import { Tabs, Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import "../styles/NotificationPopoverStyle.css";
+import axios from "axios";
 
 const { TabPane } = Tabs;
 
@@ -12,9 +13,27 @@ const Notifications = () => {
   const { user } = useSelector((state) => state.user);
   const [activeTabKey, setActiveTabKey] = useState("1");
 
-  const handleNotificationClick = (path) => {
-    navigate(path);
-    // Additional logic to mark the notification as read can be implemented here
+  const handleNotificationClick = async (notification) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/v1/user/mark-as-read",
+        {
+          userId: user._id,
+          notificationId: notification._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (res.data.success) {
+        message.success(res.data.message);
+        window.location.reload();
+      }
+    } catch (error) {
+      message.error(error);
+    }
   };
 
   const markAllAsRead = () => {
@@ -51,7 +70,7 @@ const Notifications = () => {
             user?.notifications.map((notification, index) => (
               <div
                 key={index}
-                onClick={() => handleNotificationClick(notification.path)}
+                onClick={() => handleNotificationClick(notification)}
                 style={{ cursor: "pointer" }}
                 className="notification-item"
               >
@@ -67,8 +86,13 @@ const Notifications = () => {
         <TabPane tab="Read" key="2">
           {user?.seenNotifications && user?.seenNotifications.length > 0 ? (
             user?.seenNotifications.map((notification, index) => (
-              <div key={index} style={{ padding: "10px" }}>
-                <p>{notification.message}</p>
+              <div
+                key={index}
+                style={{ cursor: "pointer" }}
+                className="notification-item"
+              >
+                <p className="notification-type">{notification.type}</p>
+                <p className="notification-message">{notification.message}</p>
                 <small>{new Date(notification.date).toLocaleString()}</small>
               </div>
             ))
