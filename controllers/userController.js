@@ -50,6 +50,23 @@ const cvController = async (req, res) => {
   }
 };
 
+const getAllCvsController = async (req, res) => {
+  try {
+    const cvs = await CVModel.find().populate("user", "name");
+    res.status(200).send({
+      success: true,
+      data: cvs,
+    });
+  } catch (error) {
+    console.error("Error getting all CVs: ", error);
+    res.status(500).send({
+      message: "Error getting all CVs",
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
 const markAllAsReadController = async (req, res) => {
   try {
     const user = await UserModel.findById(req.body.userId);
@@ -89,6 +106,7 @@ const deleteAllNotificationsController = async (req, res) => {
 module.exports = {
   authController,
   cvController,
+  getAllCvsController,
   markAllAsReadController,
   deleteAllNotificationsController,
 };
