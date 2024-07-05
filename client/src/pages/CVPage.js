@@ -4,6 +4,14 @@ import Layout from "../components/Layout";
 
 const CVPage = () => {
   const [cvs, setCvs] = useState([]);
+  function formatName(name) {
+    if (!name) return "";
+    return name
+      .toLowerCase()
+      .split(" ")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
+  }
 
   const fetchCVs = async () => {
     try {
@@ -67,7 +75,7 @@ const CVPage = () => {
         <tbody>
           {cvs.map((cv) => (
             <tr key={cv._id}>
-              <td>{cv.user.name}</td>
+              <td className="text-capitalize">{formatName(cv.user.name)}</td>
               <td>
                 <a
                   href={`http://localhost:8080/${cv.path}`}
