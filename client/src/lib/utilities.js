@@ -1,5 +1,5 @@
 const getAuthToken = () => {
-  if (process.env.NODE_MODE == "development") {
+  if (process.env.NODE_MODE === "development") {
   }
   return localStorage.getItem("token");
 };

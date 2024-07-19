@@ -4,8 +4,8 @@ import { Tabs, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import "../styles/NotificationPopoverStyle.css";
-import axios from "axios";
 import { setUser } from "../redux/features/userSlice";
+import API from "../services";
 
 const { TabPane } = Tabs;
 
@@ -17,20 +17,14 @@ const Notifications = () => {
 
   const markAllAsRead = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/v1/user/mark-all-as-read",
-        {},
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
-
-      if (res.data.success) {
-        message.success(res.data.message);
-        const updatedUser = res.data.data;
+      const response = await API.private.markAllAsRead();
+      console.log(response);
+      if (response.data.success) {
+        message.success(response.data.message);
+        const updatedUser = response.data.data;
         dispatch(setUser(updatedUser));
       } else {
-        message.error(res.data.message);
+        message.error(response.data.message);
       }
     } catch (error) {
       message.error("Failed to mark all as read: " + error.message);
@@ -39,20 +33,13 @@ const Notifications = () => {
 
   const deleteAllNotifications = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/v1/user/delete-all-notifications",
-        {},
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
-
-      if (res.data.success) {
-        message.success(res.data.message);
-        const updatedUser = res.data.data;
+      const response = await API.private.deleteAllNotifications();
+      if (response.data.success) {
+        message.success(response.data.message);
+        const updatedUser = response.data.data;
         dispatch(setUser(updatedUser));
       } else {
-        message.error(res.data.message);
+        message.error(response.data.message);
       }
     } catch (error) {
       message.error("Failed to delete all notifications: " + error.message);

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Layout from "../components/Layout";
+import API from "../services";
+import { message } from "antd";
 
 const CVPage = () => {
   const [cvs, setCvs] = useState([]);
+  const API_BASE_URL = process.env.API_BASE_URL;
+
   function formatName(name) {
     if (!name) return "";
     return name
@@ -15,16 +18,11 @@ const CVPage = () => {
 
   const fetchCVs = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8080/api/v1/user/getAllCvs",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await API.private.getAllCvs();
       if (response.data.success) {
         setCvs(response.data.data);
+      } else {
+        message.error("Failed to fetch CVs");
       }
     } catch (error) {
       console.error("Error fetching CVs: ", error);
@@ -78,7 +76,7 @@ const CVPage = () => {
               <td className="text-capitalize">{formatName(cv.user.name)}</td>
               <td>
                 <a
-                  href={`http://localhost:8080/${cv.path}`}
+                  href={`${API_BASE_URL}/${cv.path}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

@@ -20,7 +20,6 @@ const client = axios.create({
 const instance = {
   client,
   defaultHeaders,
-  publicHeaders,
 };
 
 export default instance;

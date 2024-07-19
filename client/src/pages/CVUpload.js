@@ -78,7 +78,7 @@ const CVUpload = () => {
     }, 3000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [tips.length]);
 
   return (
     <Layout>

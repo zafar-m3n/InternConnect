@@ -3,44 +3,38 @@ import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "./../redux/features/alertSlice";
 import { setUser } from "./../redux/features/userSlice";
-import axios from "axios";
+import API from "./../services";
 
 export default function ProtectedRoute({ children }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
   //getUser
-  const getUser = async () => {
-    try {
-      dispatch(showLoading());
-      const res = await axios.post(
-        "http://localhost:8080/api/v1/user/getUserData",
-        { token: localStorage.getItem("token") },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      dispatch(hideLoading());
-      if (res.data.success) {
-        dispatch(setUser(res.data.data));
-      } else {
-        <Navigate to="/auth/login" />;
-        localStorage.clear();
-      }
-    } catch (error) {
-      localStorage.clear();
-      dispatch(hideLoading());
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
+    const getUser = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await API.private.getUserData({
+          token: localStorage.getItem("token"),
+        });
+        dispatch(hideLoading());
+        if (response.data.success) {
+          dispatch(setUser(response.data.data));
+        } else {
+          <Navigate to="/auth/login" />;
+          localStorage.clear();
+        }
+      } catch (error) {
+        localStorage.clear();
+        dispatch(hideLoading());
+        console.log(error);
+      }
+    };
     if (!user) {
       getUser();
     }
-  }, [user, getUser]);
+  }, [user, dispatch]);
 
   if (localStorage.getItem("token")) {
     return children;

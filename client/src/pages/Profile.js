@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Layout from "../components/Layout";
-import axios from "axios";
 import { message } from "antd";
 import "../styles/ProfileStyle.css";
+import API from "../services";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [cv, setCv] = useState(null);
+
+  const API_BASE_URL = process.env.API_BASE_URL;
 
   function formatName(name) {
     if (!name) return "";
@@ -19,6 +21,7 @@ const Profile = () => {
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join(" ");
   }
+
   const statusColors = {
     pending: "text-warning",
     approved: "text-success",
@@ -27,14 +30,7 @@ const Profile = () => {
 
   const getCV = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8080/api/v1/user/getCvs",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await API.private.getCV();
       if (response.data.data) {
         setCv(response.data.data);
       }
@@ -111,7 +107,7 @@ const Profile = () => {
           <h4>CV Preview Section</h4>
           {cv ? (
             <iframe
-              src={`http://localhost:8080/${cv.path}`}
+              src={`${API_BASE_URL}/${cv.path}`}
               title="CV Preview"
               width="100%"
               height="450px"
