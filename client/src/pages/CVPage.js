@@ -26,6 +26,7 @@ const CVPage = () => {
       }
     } catch (error) {
       console.error("Error fetching CVs: ", error);
+      message.error("An error occurred while fetching CVs.");
     }
   };
 
@@ -33,16 +34,42 @@ const CVPage = () => {
     fetchCVs();
   }, []);
 
-  const handleApprove = (id) => {
-    setCvs((prevCvs) =>
-      prevCvs.map((cv) => (cv._id === id ? { ...cv, status: "approved" } : cv))
-    );
+  const handleApprove = async (id) => {
+    try {
+      const response = await API.private.approveOrRejectCv({
+        cvId: id,
+        status: "approved",
+      });
+      if (response.data.success) {
+        message.success("CV approved successfully");
+        // Fetch updated list of CVs after approval
+        fetchCVs();
+      } else {
+        message.error("Failed to approve CV");
+      }
+    } catch (error) {
+      console.error("Error approving CV: ", error);
+      message.error("An error occurred while approving the CV.");
+    }
   };
 
-  const handleReject = (id) => {
-    setCvs((prevCvs) =>
-      prevCvs.map((cv) => (cv._id === id ? { ...cv, status: "rejected" } : cv))
-    );
+  const handleReject = async (id) => {
+    try {
+      const response = await API.private.approveOrRejectCv({
+        cvId: id,
+        status: "rejected",
+      });
+      if (response.data.success) {
+        message.success("CV rejected successfully");
+        // Fetch updated list of CVs after rejection
+        fetchCVs();
+      } else {
+        message.error("Failed to reject CV");
+      }
+    } catch (error) {
+      console.error("Error rejecting CV: ", error);
+      message.error("An error occurred while rejecting the CV.");
+    }
   };
 
   const getStatusClass = (status) => {

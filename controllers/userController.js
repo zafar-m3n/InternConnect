@@ -67,6 +67,58 @@ const getAllCvsController = async (req, res) => {
   }
 };
 
+const approveOrRejectCvController = async (req, res) => {
+  try {
+    const cvId = req.body.cvId;
+    const status = req.body.status;
+    const cv = await CVModel.findById(cvId).populate("user");
+    if (!cv) {
+      return res.status(200).send({
+        success: false,
+        message: "CV not found",
+      });
+    }
+
+    cv.status = status;
+    await cv.save();
+
+    const user = await UserModel.findById(cv.user._id);
+    if (!user) {
+      return res.status(200).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const notificationMessage =
+      status === "approved"
+        ? "Your CV has been approved."
+        : "Your CV has been rejected.";
+
+    user.notifications.push({
+      type: "CV Status Update",
+      message: notificationMessage,
+      path: `profile`,
+      date: new Date(),
+    });
+
+    await user.save();
+
+    res.status(200).send({
+      success: true,
+      message: "CV status updated successfully",
+      data: cv,
+    });
+  } catch (error) {
+    console.error("Error updating CV: ", error);
+    res.status(500).send({
+      message: "Error updating CV",
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
 const markAllAsReadController = async (req, res) => {
   try {
     const user = await UserModel.findById(req.body.userId);
@@ -109,4 +161,5 @@ module.exports = {
   getAllCvsController,
   markAllAsReadController,
   deleteAllNotificationsController,
+  approveOrRejectCvController,
 };

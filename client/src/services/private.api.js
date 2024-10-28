@@ -54,12 +54,23 @@ const getAllCvs = async () => {
   }
 };
 
+const approveOrRejectCv = async (params = {}) => {
+  try {
+    return await instance.client.post("api/v1/user/cv/update-status", params, {
+      headers: instance.defaultHeaders(),
+    });
+  } catch (error) {
+    console.error("Error updating CV: ", error);
+  }
+};
+
 const privateAPI = {
   getUserData,
   markAllAsRead,
   deleteAllNotifications,
   getCV,
   getAllCvs,
+  approveOrRejectCv,
 };
 
 export default privateAPI;
