@@ -20,7 +20,7 @@ const Login = () => {
   return (
     <div>
       <header>
-        <img src="/images/logo.jpg" alt="logo" />
+        <img src="/images/logo.png" alt="logo" />
         <h1>APIIT InternConnect</h1>
       </header>
       <div
