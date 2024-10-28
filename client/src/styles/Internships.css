@@ -1,0 +1,49 @@
+.job-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+}
+
+.company-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #003366; /* Deep blue color */
+}
+
+.job-title {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.date-posted,
+.expires-on {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.expiration-date {
+  color: #28a745; /* Green color for expiration date */
+}
+
+.delete-btn,
+.apply-btn {
+  width: 100%;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-top: 16px;
+}
+
+.delete-btn {
+  background-color: #ff4d4f;
+  border: none;
+}
+
+.apply-btn {
+  background-color: #001529;
+  border: none;
+}

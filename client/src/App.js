@@ -14,6 +14,7 @@ import Chats from "./pages/Chats";
 import CVPage from "./pages/CVPage";
 import Reports from "./pages/Reports";
 import Lecturers from "./pages/Lecturers";
+import AddJob from "./pages/AddJob";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -62,6 +63,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Internships />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/internships/create"
+              element={
+                <ProtectedRoute>
+                  <AddJob />
                 </ProtectedRoute>
               }
             />

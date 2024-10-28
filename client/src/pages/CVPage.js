@@ -103,7 +103,7 @@ const CVPage = () => {
               <td className="text-capitalize">{formatName(cv.user.name)}</td>
               <td>
                 <a
-                  href={`${API_BASE_URL}/${cv.path}`}
+                  href={`http:localhost:8080/${cv.path}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
