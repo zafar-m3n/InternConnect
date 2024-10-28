@@ -1,0 +1,41 @@
+.add-job-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: #f7f9fc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-job-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #001529;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.add-job-form .ant-form-item-label label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.input-field {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.submit-btn-container {
+  text-align: center;
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #001529;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+}

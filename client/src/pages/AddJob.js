@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import API from "../services";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import "../styles/AddJob.css"; // Import the CSS file for styling
 
 const AddJob = () => {
   const { user } = useSelector((state) => state.user);
@@ -37,9 +38,9 @@ const AddJob = () => {
 
   return (
     <Layout>
-      <div className="container">
-        <h2 className="mb-4">Add a New Job</h2>
-        <Form layout="vertical" onFinish={onFinish}>
+      <div className="add-job-container">
+        <h2 className="add-job-title">Add a New Job</h2>
+        <Form layout="vertical" onFinish={onFinish} className="add-job-form">
           <Form.Item
             label="Company Name"
             name="companyName"
@@ -47,7 +48,7 @@ const AddJob = () => {
               { required: true, message: "Please enter the company name" },
             ]}
           >
-            <Input placeholder="Enter company name" />
+            <Input placeholder="Enter company name" className="input-field" />
           </Form.Item>
 
           <Form.Item
@@ -55,7 +56,10 @@ const AddJob = () => {
             name="vacancy"
             rules={[{ required: true, message: "Please enter the job role" }]}
           >
-            <Input placeholder="Enter the role or designation" />
+            <Input
+              placeholder="Enter the role or designation"
+              className="input-field"
+            />
           </Form.Item>
 
           <Form.Item
@@ -63,7 +67,10 @@ const AddJob = () => {
             name="linkedinLink"
             rules={[{ type: "url", message: "Please enter a valid URL" }]}
           >
-            <Input placeholder="Enter LinkedIn profile link" />
+            <Input
+              placeholder="Enter LinkedIn profile link"
+              className="input-field"
+            />
           </Form.Item>
 
           <Form.Item
@@ -71,7 +78,10 @@ const AddJob = () => {
             name="websiteLink"
             rules={[{ type: "url", message: "Please enter a valid URL" }]}
           >
-            <Input placeholder="Enter company website link" />
+            <Input
+              placeholder="Enter company website link"
+              className="input-field"
+            />
           </Form.Item>
 
           <Form.Item
@@ -86,14 +96,20 @@ const AddJob = () => {
           >
             <DatePicker
               format="YYYY-MM-DD"
+              className="input-field"
               disabledDate={(current) =>
                 current && current < moment().endOf("day")
               }
             />
           </Form.Item>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading}>
+          <Form.Item className="submit-btn-container">
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              className="submit-btn"
+            >
               Submit
             </Button>
           </Form.Item>
