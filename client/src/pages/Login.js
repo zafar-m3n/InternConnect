@@ -43,7 +43,7 @@ const Login = () => {
           </p>
           <p>
             Click on "STUDENTS’ OFFICE 365 EDUCATION LOGIN" button to log in to
-            the IMS.
+            the LMS.
           </p>
           <p>
             If you cannot remember the password, go to&nbsp;

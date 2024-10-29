@@ -15,7 +15,7 @@ header {
 }
 
 header img {
-  height: 80%;
+  height: 100px;
   margin-right: 20px;
 }
 
@@ -39,7 +39,7 @@ header h1 {
 
 .box {
   width: 60%;
-  background-color: rgba(165, 215, 232, 0.7);
+  background-color: rgba(165, 215, 232, 0.9);
   border-radius: 10px;
   padding: 20px;
   box-sizing: border-box;
